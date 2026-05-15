@@ -73,7 +73,7 @@ backend/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/fastapi-auth.git
+git clone https://github.com/mieraf-one/Auth.git
 cd fastapi-auth/backend
 ```
 
