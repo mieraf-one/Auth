@@ -5,6 +5,8 @@ from app.models.user import User
 from app.schemas.auth import LoginIn
 from fastapi import HTTPException, status
 
+from app.services.auth.is_user_active import is_user_active
+
 # validate user
 def validate_user(data: LoginIn, db: Session):
     credential = (
@@ -30,6 +32,8 @@ def validate_user(data: LoginIn, db: Session):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Invalid Login Information'
         )
+    
+    is_user_active(current_user=credential)
     
     return credential.id
 

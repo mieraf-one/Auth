@@ -5,11 +5,11 @@ from app.services.auth.delete_user import delete_user
 from app.services.auth.forgot_password import send_reset_code, update_reset_password
 from app.services.auth.refresh_access_token import refresh_access_token
 from app.services.auth.logout import logout_user
-from app.services.auth.send_email_verification import send_code
+from app.services.auth.verification.send_email_verification import send_code
 from app.services.auth.update.update_email import email_update
 from app.services.auth.update.update_password import password_update
 from app.services.auth.update.update_username import username_update
-from app.services.auth.verify_email_code import verify_code
+from app.services.auth.verification.verify_email_code import verify_code
 from app.dependencies.auth import get_current_user
 from app.services.auth.signup import create_user
 from app.services.auth.login import login_user

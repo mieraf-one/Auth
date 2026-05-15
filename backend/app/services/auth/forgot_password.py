@@ -3,9 +3,9 @@ from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, status
 
 from app.core.security import hash_password, verify_password
-from app.services.auth.send_email_verification import email_message, generate_code, save_code_to_db
+from app.services.auth.verification.send_email_verification import email_message, generate_code, save_code_to_db
 from fastapi_mail import FastMail
-from app.services.auth.send_email_verification import conf
+from app.services.auth.verification.send_email_verification import conf
 from app.models.emailCode import EmailVerificationCode
 from app.models.user import User
 from sqlalchemy.orm import Session

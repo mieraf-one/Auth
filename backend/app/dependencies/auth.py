@@ -7,12 +7,13 @@ from jose import jwt, JWTError, ExpiredSignatureError
 from app.core.config import settings
 from app.models.user import User
 from app.database import get_db
+from app.services.auth.is_user_active import is_user_active
 
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='auth/login')
 
-def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
 
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
@@ -35,5 +36,7 @@ def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Invalid token'
         )
+    
+    is_user_active(current_user=user)
     
     return user

@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.security import create_access_token
 from app.models.refresh_token import RefreshToken
+from app.services.auth.is_user_active import is_user_active
 
 
 
@@ -40,6 +41,9 @@ def validate_refresh_token(refresh_token: str, db: Session):
 def refresh_access_token(refresh_token: str, db: Session):
     # validate: expiration and existance
     token = validate_refresh_token(refresh_token=refresh_token, db=db)
+
+    # check if user is active
+    is_user_active(current_user=token.user)
 
     # create new access token
     new_access_token = create_access_token(data={'user_id': token.user_id})
