@@ -74,7 +74,7 @@ backend/
 
 ```bash
 git clone https://github.com/mieraf-one/Auth.git
-cd fastapi-auth/backend
+cd Auth/backend
 ```
 
 ### 2. Create and activate virtual environment
