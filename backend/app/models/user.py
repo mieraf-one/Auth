@@ -1,0 +1,36 @@
+from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy.orm import relationship
+
+from app.database import Base
+from app.models import refresh_token
+
+from datetime import datetime, timezone
+
+
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, nullable=False, index=True)
+    email = Column(String,unique=True, nullable=True, index=True)
+
+    hashed_password = Column(String, nullable=False)
+
+    is_active = Column(Boolean, default=True)
+    is_verified = Column(Boolean, default=False)
+
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    refresh_tokens = relationship(
+        'RefreshToken',
+        back_populates='user',
+        cascade="all, delete-orphan"
+    )
+
+    sent_codes = relationship(
+        'EmailVerificationCode',
+        back_populates='user',
+        order_by='desc(EmailVerificationCode.created_at)'
+    )
