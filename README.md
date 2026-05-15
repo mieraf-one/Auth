@@ -216,9 +216,3 @@ Access tokens expire in **15 minutes**. Use the `/auth/refresh` endpoint with yo
 | `MAIL_USERNAME` | Gmail address | ✅ |
 | `MAIL_PASSWORD` | Gmail app password | ✅ |
 | `MAIL_FROM` | Sender email address | ✅ |
-
----
-
-## 📄 License
-
-MIT
