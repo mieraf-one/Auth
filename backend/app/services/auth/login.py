@@ -1,9 +1,12 @@
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
+
+
 from app.core.security import create_access_token, create_refresh_token, verify_password
 from app.models.user import User
 from app.schemas.auth import LoginIn
-from fastapi import HTTPException, status
+
 
 from app.services.auth.is_user_active import is_user_active
 
@@ -23,14 +26,14 @@ def validate_user(data: LoginIn, db: Session):
     if credential is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='Invalid Login Information'
+            detail='Invalid Login Information. 1'
         )
     
     # validate password
     if not verify_password(data.password, credential.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='Invalid Login Information'
+            detail='Invalid Login Information. 2'
         )
     
     is_user_active(current_user=credential)
